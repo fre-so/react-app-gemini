@@ -10,6 +10,7 @@ export default defineConfig(({ mode }) => {
         host: '0.0.0.0',
         allowedHosts: [".e2b.app", ".bespoker.ai"],
       },
+      envPrefix: ["VITE_", "MAPBOX_"],
       plugins: [react()],
       define: {
       },
