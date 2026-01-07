@@ -1,4 +1,4 @@
-# Scrollytelling Components
+# Scrollytelling Skill
 
 Scrollytelling is a scroll-driven narrative pattern: content advances step by step while a visual area (media/graphics/illustrations) stays in sync. It helps readers digest information at a controlled pace and keeps attention anchored on the story.
 

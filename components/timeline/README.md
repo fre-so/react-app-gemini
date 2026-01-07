@@ -1,4 +1,4 @@
-# Timeline Components
+# Timeline Skill
 
 Timeline layouts are scroll-driven sequences where a step list stays in sync with a media panel. These components power chronological narratives, milestones, and progress storytelling.
 

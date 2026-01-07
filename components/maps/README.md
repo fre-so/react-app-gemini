@@ -1,4 +1,4 @@
-# Map Components
+# Maps Skill
 
 This folder contains map-focused UI blocks built on Mapbox GL and the timeline primitives. They are designed for storytelling with routes and step-by-step map progress.
 
