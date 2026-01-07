@@ -1,3 +1,30 @@
+# Maps Skill
+
+This folder contains map-focused UI blocks built on Mapbox GL and the timeline primitives. They are designed for storytelling with routes and step-by-step map progress.
+
+## Requirements
+- Set `MAPBOX_API_TOKEN` in your environment (used as `import.meta.env.MAPBOX_API_TOKEN`).
+- Routes must use `[longitude, latitude]` pairs.
+- Mapbox Directions API is used to fetch a route; this component enforces 2–25 points.
+
+---
+
+## MapRoute
+
+### What it looks like / behavior
+- Renders a Mapbox map with a route line and markers.
+- Fetches a driving route from Mapbox Directions API.
+- When `progress` is provided, the route line is sliced and markers appear as progress passes their thresholds.
+- When `progress` is omitted, the full route is displayed.
+
+### Use cases
+- Standalone route visualization.
+- Progressive reveal of a route in sync with scroll or playback.
+- Embedding inside a scrollytelling layout (see MapTimeline).
+
+### Component Code
+
+~~~components/maps/MapRoute.tsx
 import {
   useEffect,
   useMemo,
@@ -657,3 +684,142 @@ export default function MapRoute({
     </div>
   )
 }
+~~~
+
+---
+
+## MapTimeline
+
+### What it looks like / behavior
+- A scrollytelling timeline (vertical or horizontal) paired with a sticky map.
+- The map is always one media group, and the route reveals as scroll progress increases.
+- Each step corresponds to one coordinate in the route.
+
+### Use cases
+- Storytelling along a journey or delivery route.
+- Showing progress across locations with narrative steps.
+- Combining a map with timeline-style copy.
+
+### Component Code
+
+~~~components/maps/MapTimeline.tsx
+import { useEffect, useState, type ComponentType } from "react"
+import { useMotionValueEvent } from "motion/react"
+
+import MapRoute, { type Coordinate } from "@/components/maps/MapRoute"
+import { HorizontalTimeline } from "@/components/timeline/HorizontalTimeline"
+import { VerticalTimeline } from "@/components/timeline/VerticalTimeline"
+import type {
+  TimelineMediaRenderProps,
+  TimelineStepRenderProps,
+} from "@/components/timeline/utils"
+import { cn } from "@/lib/utils"
+
+type MapTimelineMarkerRenderProps = {
+  point: Coordinate
+  index: number
+  isVisible: boolean
+}
+
+export type MapTimelineStepRenderProps = TimelineStepRenderProps & {
+  routeItem: Coordinate
+  route: ReadonlyArray<Coordinate>
+}
+
+export type MapTimelineProps = {
+  layout: "vertical" | "horizontal"
+  route: ReadonlyArray<Coordinate>
+  stepScrollDistance?: number
+  mapSide?: "left" | "right"
+  stepRatio?: number
+  className?: string
+  stepClassName?: string
+  mapClassName?: string
+  StepComponent: ComponentType<MapTimelineStepRenderProps>
+  MarkerComponent?: ComponentType<MapTimelineMarkerRenderProps>
+}
+
+const MEDIA_KEY = "map-route"
+const getMapMediaKey = () => MEDIA_KEY
+
+const clampProgress = (value: number) => Math.min(1, Math.max(0, value))
+
+export function MapTimeline({
+  layout,
+  route,
+  stepScrollDistance,
+  mapSide,
+  stepRatio,
+  className,
+  stepClassName,
+  mapClassName,
+  StepComponent,
+  MarkerComponent,
+}: MapTimelineProps) {
+  const steps = route.length
+
+  function MapTimelineStep(props: TimelineStepRenderProps) {
+    const routeItem = route[props.stepIndex]
+    if (!routeItem) {
+      return null
+    }
+    return (
+      <StepComponent
+        {...props}
+        routeItem={routeItem}
+        route={route}
+      />
+    )
+  }
+
+  function MapTimelineMedia({ scrollProgress }: TimelineMediaRenderProps) {
+    const [progress, setProgress] = useState(() =>
+      clampProgress(scrollProgress.get())
+    )
+
+    useEffect(() => {
+      setProgress(clampProgress(scrollProgress.get()))
+    }, [scrollProgress])
+
+    useMotionValueEvent(scrollProgress, "change", (latest) => {
+      setProgress(clampProgress(latest))
+    })
+
+    return (
+      <MapRoute
+        route={route}
+        className={cn("w-full h-full", mapClassName)}
+        MarkerComponent={MarkerComponent}
+        progress={progress}
+      />
+    )
+  }
+
+  if (layout === "vertical") {
+    return (
+      <VerticalTimeline
+        steps={steps}
+        mediaSide={mapSide}
+        stepRatio={stepRatio}
+        className={className}
+        stepClassName={stepClassName}
+        getMediaKey={getMapMediaKey}
+        StepComponent={MapTimelineStep}
+        MediaComponent={MapTimelineMedia}
+      />
+    )
+  }
+
+  return (
+    <HorizontalTimeline
+      steps={steps}
+      stepScrollDistance={stepScrollDistance}
+      className={className}
+      stepClassName={stepClassName}
+      getMediaKey={getMapMediaKey}
+      StepComponent={MapTimelineStep}
+      MediaComponent={MapTimelineMedia}
+    />
+  )
+}
+~~~
