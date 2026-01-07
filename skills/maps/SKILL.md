@@ -24,7 +24,7 @@ This folder contains map-focused UI blocks built on Mapbox GL and the timeline p
 
 ### Component Code
 
-~~~components/maps/MapRoute.tsx
+~~~MapRoute.tsx
 import {
   useEffect,
   useMemo,
@@ -702,13 +702,13 @@ export default function MapRoute({
 
 ### Component Code
 
-~~~components/maps/MapTimeline.tsx
+~~~MapTimeline.tsx
 import { useEffect, useState, type ComponentType } from "react"
 import { useMotionValueEvent } from "motion/react"
 
-import MapRoute, { type Coordinate } from "@/components/maps/MapRoute"
-import { HorizontalTimeline } from "@/components/timeline/HorizontalTimeline"
-import { VerticalTimeline } from "@/components/timeline/VerticalTimeline"
+import MapRoute, { type Coordinate } from "./MapRoute"
+import { HorizontalTimeline } from "../timeline/HorizontalTimeline"
+import { VerticalTimeline } from "../timeline/VerticalTimeline"
 import type {
   TimelineMediaRenderProps,
   TimelineStepRenderProps,

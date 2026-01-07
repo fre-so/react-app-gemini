@@ -15,7 +15,7 @@ Scrollytelling is a scroll-driven narrative pattern: content advances step by st
 - Media should stay in view as a stable visual anchor.
 
 ### Component Code
-~~~components/scrollytelling/StickySide.tsx
+~~~StickySide.tsx
 import {
   motion,
   type MotionValue,
@@ -398,7 +398,7 @@ function StepCard({
 - Landing page sections that need compact storytelling.
 
 ### Component Code
-~~~components/scrollytelling/HighlightStep.tsx
+~~~HighlightStep.tsx
 import {
   motion,
   type MotionValue,

@@ -17,7 +17,7 @@ Timeline layouts are scroll-driven sequences where a step list stays in sync wit
 - Richer step content but still with a strong "timeline" feel.
 
 ### Component Code
-~~~components/timeline/VerticalTimeline.tsx
+~~~VerticalTimeline.tsx
 import { motion, useMotionValueEvent, useScroll, useSpring } from "motion/react"
 import {
   useCallback,
@@ -263,7 +263,7 @@ export function VerticalTimeline({
 - Overview-style storytelling where space is limited.
 
 ### Component Code
-~~~components/timeline/HorizontalTimeline.tsx
+~~~HorizontalTimeline.tsx
 import { motion, useMotionValueEvent, useScroll, useSpring } from "motion/react"
 import {
   useCallback,
@@ -487,7 +487,7 @@ export function HorizontalTimeline({
 
 ## Shared Code
 
-~~~components/timeline/utils.ts
+~~~utils.ts
 import type { MotionValue } from "motion/react"
 
 export type TimelineStepRenderProps = {
@@ -539,7 +539,7 @@ export function buildMediaGroups(
 }
 ~~~
 
-~~~components/timeline/MediaGroup.tsx
+~~~MediaGroup.tsx
 import { motion, type MotionValue, useTransform } from "motion/react"
 import { type ComponentType } from "react"
 
