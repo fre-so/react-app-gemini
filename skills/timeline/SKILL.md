@@ -405,7 +405,7 @@ export function HorizontalTimeline({
           <div ref={stickyContentRef} className="flex flex-col gap-8">
             <div className="w-full space-y-6">
               <div className="relative">
-                <div className="absolute top-1.25 h-0.5 bg-border" style={{ left: lineInset, right: lineInset }}>
+                <div className="absolute top-[5px] h-0.5 bg-border" style={{ left: lineInset, right: lineInset }}>
                   <motion.div
                     className="h-full w-full bg-primary/70"
                     style={{
