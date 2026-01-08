@@ -23,10 +23,10 @@ This skill builds interactive flowcharts with SVG. It focuses on consistent visu
 - Keep keyboard access in mind when interactions are enabled: focusable nodes and visible focus styling.
 
 ## Layout
-- Load Dagre only from `https://dagrejs.github.io/project/dagre/latest/dagre.min.js`.
 - Use Dagre to compute the node positions; set node widths/heights based on measured label size plus padding.
-- Render edges as cubic bezier paths. Add `marker-end` (or `marker-start`) only for edges that represent sequence.
+- Render edges as cubic bezier paths. Add `marker-end` (or `marker-start`) for edges that represent sequence, and keep the tangents at each port orthogonal to the node side (vertical at top/bottom ports, horizontal at left/right ports) to avoid diagonal connections.
 - Avoid scaling from viewBox: set the SVG width/height to match the layout dimensions and only use a viewBox that matches those exact values.
-- Swimlanes: treat lanes as fixed bands (rows or columns). After Dagre positions nodes, snap each node into its assigned lane and expand the lane bounds to include all member nodes plus padding. Render lane backgrounds behind nodes with a clear label header.
-- Node groups/sections: compute group bounds from member nodes, then draw a rounded background rectangle with a label anchored to the top-left of the group. Keep group padding consistent, render groups behind nodes, and update group bounds if node sizes change.
-
+- Swimlanes: treat lanes as fixed bands (rows or columns). After Dagre positions nodes, snap each node into its assigned lane and expand the lane bounds to include all member nodes plus padding. Render lane backgrounds behind nodes with a clear label header, and reserve extra label padding so lane labels never overlap nodes or edges.
+- Node groups/sections: compute group bounds from member nodes, then draw a rounded background rectangle with a label anchored to the top-left of the group. Keep group padding consistent, render groups behind nodes, update group bounds if node sizes change, and reserve label padding so group labels never overlap nodes or edges.
+- Edge routing: each node exposes four ports (top/right/bottom/left). When selecting start/end ports, choose the pair that minimizes overall path length while avoiding overlap with other edges; if ties remain, prefer the route with fewer crossings.
+- Compute node sizes and positions first, then derive edge ports plus swimlane and group bounds from those node positions to keep every element aligned.

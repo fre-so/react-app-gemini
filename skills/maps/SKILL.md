@@ -1,6 +1,6 @@
 # Maps Skill
 
-This folder contains map-focused UI blocks built on Mapbox GL and the timeline primitives. They are designed for storytelling with routes and step-by-step map progress.
+Map-focused UI blocks built on Mapbox GL and the timeline primitives. Use them to tell route-based stories with checkpoints and step-by-step progress synced to scroll or playback.
 
 ## Requirements
 - Set `MAPBOX_API_TOKEN` in your environment (used as `import.meta.env.MAPBOX_API_TOKEN`).
@@ -22,7 +22,7 @@ This folder contains map-focused UI blocks built on Mapbox GL and the timeline p
 - Progressive reveal of a route in sync with scroll or playback.
 - Embedding inside a scrollytelling layout (see MapTimeline).
 
-### Component Code
+### Example Code
 
 ~~~MapRoute.tsx
 import {
@@ -700,7 +700,7 @@ export default function MapRoute({
 - Showing progress across locations with narrative steps.
 - Combining a map with timeline-style copy.
 
-### Component Code
+### Example Code
 
 ~~~MapTimeline.tsx
 import { useEffect, useState, type ComponentType } from "react"
