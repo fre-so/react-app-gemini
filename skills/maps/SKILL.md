@@ -22,7 +22,7 @@ Component Path: `components/maps/MapRoute.tsx`
 ### Use cases
 - Standalone route visualization.
 - Progressive reveal of a route in sync with scroll or playback.
-- Embedding inside a scrollytelling layout (see MapTimeline).
+- Embedding inside a scrollytelling layout (see MapRouteTimeline).
 
 ### Usage
 ```tsx
@@ -72,12 +72,12 @@ export default function Demo() {
 
 ---
 
-## MapTimeline Component
-Component Path: `components/maps/MapTimeline.tsx`
+## MapRouteTimeline Component
+Component Path: `components/maps/MapRouteTimeline.tsx`
 
 ### What it looks like / behavior
 - A scrollytelling timeline (vertical or horizontal) paired with a sticky map.
-- The map is always one media group, and the route reveals as scroll progress increases.
+- The map is the only sticky media, and the route reveals as scroll progress increases.
 - Each step corresponds to one coordinate in the route.
 
 ### Use cases
@@ -87,7 +87,7 @@ Component Path: `components/maps/MapTimeline.tsx`
 
 ### Usage
 ```tsx
-import { MapTimeline } from "@/components/maps/MapTimeline"
+import { MapRouteTimeline } from "@/components/maps/MapRouteTimeline"
 import type { Coordinate } from "@/components/maps/MapRoute"
 
 const route: Coordinate[] = [
@@ -110,7 +110,7 @@ function Step({ stepIndex, routeItem }: { stepIndex: number; routeItem: Coordina
 
 export default function Demo() {
   return (
-    <MapTimeline
+    <MapRouteTimeline
       layout="vertical"
       route={route}
       mapSide="right"
@@ -130,9 +130,9 @@ export default function Demo() {
 - `className?: string`: wrapper class for the timeline section.
 - `stepClassName?: string`: wrapper class for each step content.
 - `mapClassName?: string`: wrapper class for the map container.
-- `StepComponent: ComponentType<MapTimelineStepRenderProps>`: required. Receives timeline props plus `{ routeItem, route }`.
-- `MarkerComponent?: ComponentType<MapTimelineMarkerRenderProps>`: optional map marker UI. Receives `{ point, index, isVisible }`.
+- `StepComponent: ComponentType<MapRouteTimelineStepRenderProps>`: required. Receives timeline props plus `{ routeItem, route }`.
+- `MarkerComponent?: ComponentType<MapRouteTimelineMarkerRenderProps>`: optional map marker UI. Receives `{ point, index, isVisible }`.
 
 ### Notes
-- MapTimeline uses MapRoute internally, so `MAPBOX_API_TOKEN` is required.
+- MapRouteTimeline uses MapRoute internally, so `MAPBOX_API_TOKEN` is required.
 - Each step corresponds to one coordinate in the route.

@@ -10,18 +10,18 @@ import type {
 } from "@/components/timeline/utils"
 import { cn } from "@/lib/utils"
 
-type MapTimelineMarkerRenderProps = {
+type MapRouteTimelineMarkerRenderProps = {
   point: Coordinate
   index: number
   isVisible: boolean
 }
 
-export type MapTimelineStepRenderProps = TimelineStepRenderProps & {
+export type MapRouteTimelineStepRenderProps = TimelineStepRenderProps & {
   routeItem: Coordinate
   route: ReadonlyArray<Coordinate>
 }
 
-export type MapTimelineProps = {
+export type MapRouteTimelineProps = {
   layout: "vertical" | "horizontal"
   route: ReadonlyArray<Coordinate>
   stepScrollDistance?: number
@@ -30,8 +30,8 @@ export type MapTimelineProps = {
   className?: string
   stepClassName?: string
   mapClassName?: string
-  StepComponent: ComponentType<MapTimelineStepRenderProps>
-  MarkerComponent?: ComponentType<MapTimelineMarkerRenderProps>
+  StepComponent: ComponentType<MapRouteTimelineStepRenderProps>
+  MarkerComponent?: ComponentType<MapRouteTimelineMarkerRenderProps>
 }
 
 const MEDIA_KEY = "map-route"
@@ -39,7 +39,7 @@ const getMapMediaKey = () => MEDIA_KEY
 
 const clampProgress = (value: number) => Math.min(1, Math.max(0, value))
 
-export function MapTimeline({
+export function MapRouteTimeline({
   layout,
   route,
   stepScrollDistance,
@@ -50,10 +50,10 @@ export function MapTimeline({
   mapClassName,
   StepComponent,
   MarkerComponent,
-}: MapTimelineProps) {
+}: MapRouteTimelineProps) {
   const steps = route.length
 
-  function MapTimelineStep(props: TimelineStepRenderProps) {
+  function MapRouteTimelineStep(props: TimelineStepRenderProps) {
     const routeItem = route[props.stepIndex]
     if (!routeItem) {
       return null
@@ -67,7 +67,7 @@ export function MapTimeline({
     )
   }
 
-  function MapTimelineMedia({ scrollProgress }: TimelineMediaRenderProps) {
+  function MapRouteTimelineMedia({ scrollProgress }: TimelineMediaRenderProps) {
     const [progress, setProgress] = useState(() =>
       clampProgress(scrollProgress.get())
     )
@@ -99,8 +99,8 @@ export function MapTimeline({
         className={className}
         stepClassName={stepClassName}
         getMediaKey={getMapMediaKey}
-        StepComponent={MapTimelineStep}
-        MediaComponent={MapTimelineMedia}
+        StepComponent={MapRouteTimelineStep}
+        MediaComponent={MapRouteTimelineMedia}
       />
     )
   }
@@ -112,8 +112,8 @@ export function MapTimeline({
       className={className}
       stepClassName={stepClassName}
       getMediaKey={getMapMediaKey}
-      StepComponent={MapTimelineStep}
-      MediaComponent={MapTimelineMedia}
+      StepComponent={MapRouteTimelineStep}
+      MediaComponent={MapRouteTimelineMedia}
     />
   )
 }
