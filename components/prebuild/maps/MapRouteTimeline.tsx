@@ -1,13 +1,13 @@
 import { useEffect, useState, type ComponentType } from "react"
 import { useMotionValueEvent } from "motion/react"
 
-import MapRoute, { type Coordinate } from "@/components/maps/MapRoute"
-import { HorizontalTimeline } from "@/components/timeline/HorizontalTimeline"
-import { VerticalTimeline } from "@/components/timeline/VerticalTimeline"
+import MapRoute, { type Coordinate } from "./MapRoute"
+import { HorizontalTimeline } from "../timeline/HorizontalTimeline"
+import { VerticalTimeline } from "../timeline/VerticalTimeline"
 import type {
   TimelineMediaRenderProps,
   TimelineStepRenderProps,
-} from "@/components/timeline/utils"
+} from "../timeline/utils"
 import { cn } from "@/lib/utils"
 
 type MapRouteTimelineMarkerRenderProps = {
