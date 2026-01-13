@@ -77,7 +77,7 @@ export default function Demo() {
 - `mediaClassName?: string`: wrapper class for media area.
 - `stepMinHeight?: string`: per-step minimum height, default `"80vh"`.
 - `mediaMinHeight?: string`: media panel minimum height, default `"80vh"`.
-- `stepRatio?: number`: step column width ratio (0–1). Media uses `1 - stepRatio`.
+- `stepRatio?: number`: step column width ratio (0–1). Media uses `1 - stepRatio`. Default `0.5`. Set smaller for wider media.
 - `getMediaKey?: (stepIndex) => string | number`: group adjacent steps by key.
 - `StepComponent`: required, renders step content.
 - `MediaComponent`: required, renders media content.
@@ -152,7 +152,7 @@ export default function Demo() {
 - `className?: string`: section wrapper class.
 - `stepClassName?: string`: step button wrapper class.
 - `mediaClassName?: string`: media wrapper class.
-- `stepRatio?: number`: step column width ratio (0–1), default `0.4`.
+- `stepRatio?: number`: step column width ratio (0–1), default `0.4`. Set smaller for wider media.
 - `mediaMinHeight?: string`: media min height, default `"70vh"`.
 - `stepScrollDistance?: number`: extra scroll distance per step, default `400`. Overall height ~ `100vh + steps * stepScrollDistance`.
 - `getMediaKey?: (stepIndex) => string | number`: group adjacent steps by key.
@@ -174,7 +174,7 @@ They receive similar render props:
 type RenderProps = {
   stepIndex: number
   isActive: boolean
-  scrollProgress: MotionValue<number>
+  scrollProgress: motionValue<number>
 }
 ```
 
